@@ -1,4 +1,6 @@
-### AWS DynamoDB Table Terraform module Terraform module to create a DynamoDB table.
+### AWS DynamoDB Table Terraform module 
+
+### Terraform module to create a DynamoDB table.
 
 ```
 module "dynamodb_table" {
