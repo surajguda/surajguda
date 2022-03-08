@@ -1,10 +1,15 @@
-- 👋 Hi, I’m @surajguda
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
+### AWS DynamoDB Table Terraform module Terraform module to create a DynamoDB table.
 
-<!---
-surajguda/surajguda is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+```
+module "dynamodb_table" {
+source              = "../dynamodb"
+hash_key		    = var.hash_key
+name			    = var.name
+stream_view_type	= var.stream_view_type
+billing_mode		= var.billing_mode
+attribute_name 		= var.attribute_name
+}
+```
+
+Note
+: Creating DynamoDB tables for re-usability, in example file an example is mentioned to create DynamoDB tables.
