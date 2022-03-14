@@ -1,0 +1,42 @@
+Ramesh Namani5:08 PM
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3control_bucket_policy
+Ramesh Namani5:13 PM
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy
+You5:30 PM
+ Error: Error putting S3 policy: MalformedPolicy: Missing required field Principal
+│       status code: 400, request id: R21CFDF76FR6Q2YW, host id: ag5MN458LTdLh261TouiDwomrbOHC85Co/sczpdqI6cRcWqUX4oVe/0y+lGD0KY5BTG3PwAR6dM=
+│
+│   with aws_s3_bucket_policy.allow_access_from_another_account,
+│   on main.tf line 41, in resource "aws_s3_bucket_policy" "allow_access_from_another_account":
+│   41: resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
+Ramesh Namani5:32 PM
+https://stackoverflow.com/questions/51310312/malformed-s3-policy-from-terraform
+You5:41 PM
+policy: "" => "{\n  \"Version\":\"2012-10-17\",\n    \"Statement\":[{\n      \"Principal\": \"*\",\n      \"Action\":[\n        \"s3:*\"\n      ],\n        \"Resource\":[\n         \"arn:aws:s3:::koho-datalake-staging-curated-spending\",\n \"arn:aws:s3:::koho-datalake-staging-curated-spending/*\"     ],\n    \"Effect\":\"Allow\"\n  }, {\n    \"Principal\": \"*\",\n    \"Action\":[\n      \"s3:ListBucket\",\n      \"s3:ListBucketMultipartUploads\"\n    ],\n    \"Resource\":[\n      \"arn:aws:s3::
+Ramesh Namani5:44 PM
+"{\n  \"Version\":\"2012-10-17\",\n    \"Statement\":[{\n      \"Principal\": \"*\",\n      \"Action\":[\n        \"s3:*\"\n      ],\n        \"Resource\":[\n         \"arn:aws:s3:::koho-datalake-staging-curated-spending\",\n \"arn:aws:s3:::koho-datalake-staging-curated-spending/*\"     ],\n    \"Effect\":\"Allow\"\n  }"
+You5:55 PM
+koho-datalake-staging-curated-spending
+Ramesh Namani5:56 PM
+jsonencode=({"Version":"2012-10-17","Statement":[{"Principal":"*","Action":["s3:*"],"Resource":["arn:aws:s3:::koho-datalake-staging-curated-spending","arn:aws:s3:::koho-datalake-staging-curated-spending\/*"],"Effect":"Allow"}]})
+Ramesh Namani6:00 PM
+policy                            = <<-EOT
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Principal": "*",
+            "Action": [
+                "s3:*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::koho-datalake-staging-curated-spending",
+                "arn:aws:s3:::koho-datalake-staging-curated-spending\/*"
+            ],
+            "Effect": "Allow"
+        }
+    ]
+}
+
+EOT
+trm-fgug-xqt
