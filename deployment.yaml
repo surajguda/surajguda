@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: helloworld
+  name: helloworld
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helloworld
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: helloworld
+    spec:
+      containers:
+      - image: 298841451579.dkr.ecr.us-east-1.amazonaws.com/pipeline_testing_hmh:helloworld
+        name: pipeline-testing-hmh-62hz5
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: helloworld
+  name: helloworld
+spec:
+  ports:
+  - name: 808-8081
+    port: 808
+    protocol: TCP
+    targetPort: 8081
+  selector:
+    app: helloworld
+  type: ClusterIP
+status:
+  loadBalancer: {}
